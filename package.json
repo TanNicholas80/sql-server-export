@@ -1,0 +1,29 @@
+{
+  "name": "node-sqlserver-crawler",
+  "version": "1.0.0",
+  "description": "Crawl SQL Server 2014, export to CSV, and upload to Laravel VPS",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "fast-csv": "^5.0.3",
+    "form-data": "^4.0.1",
+    "mssql": "^11.0.1",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0"
+  },
+  "keywords": [
+    "sqlserver",
+    "laravel",
+    "csv",
+    "crawler",
+    "uploader"
+  ],
+  "author": "",
+  "license": "ISC"
+}

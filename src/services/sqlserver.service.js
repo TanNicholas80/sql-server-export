@@ -54,7 +54,7 @@ class SqlServerService {
     
     let defaultQuery = baseQuery;
     if (!defaultQuery) {
-      defaultQuery = 'SELECT TOP 1000 t.*, p.ProductName AS PRODUCT_NAME FROM [TICKET].[dbo].[TICKET_DETAIL] t LEFT JOIN [TICKET].[dbo].[PRODUCT] p ON t.PRODUCT_CODE = p.ProductCode';
+      defaultQuery = 'SELECT TOP 1000 t.*, p.ProductName AS PRODUCT_NAME, d.FabricName AS FABRIC_NAME, d.CustomerName AS CUSTOMER_NAME, d.BATCH AS DYELOT_BATCH, d.ColorName AS COLOR_NAME, d.OrderNo AS ORDER_NO FROM [TICKET].[dbo].[TICKET_DETAIL] t LEFT JOIN [TICKET].[dbo].[PRODUCT] p ON t.PRODUCT_CODE = p.ProductCode LEFT JOIN [BatchDyeingCentral].[dbo].[Dyelots] d ON t.ID_NO = d.Dyelot';
     }
 
     if (!enabled) {
@@ -134,7 +134,7 @@ class SqlServerService {
     
     let defaultQuery = baseDeltaQuery;
     if (!defaultQuery) {
-      defaultQuery = `SELECT TOP 1000 t.*, p.ProductName AS PRODUCT_NAME FROM [TICKET].[dbo].[TICKET_DETAIL] t LEFT JOIN [TICKET].[dbo].[PRODUCT] p ON t.PRODUCT_CODE = p.ProductCode WHERE (t.ACTUAL_WT IS NOT NULL AND t.ACTUAL_WT > 0) AND (t.COMP_DATE >= :last_delta_time OR :last_delta_time IS NULL) ORDER BY t.COMP_DATE ASC, t.COMP_TIME ASC`;
+      defaultQuery = `SELECT TOP 1000 t.*, p.ProductName AS PRODUCT_NAME, d.FabricName AS FABRIC_NAME, d.CustomerName AS CUSTOMER_NAME, d.BATCH AS DYELOT_BATCH, d.ColorName AS COLOR_NAME, d.OrderNo AS ORDER_NO FROM [TICKET].[dbo].[TICKET_DETAIL] t LEFT JOIN [TICKET].[dbo].[PRODUCT] p ON t.PRODUCT_CODE = p.ProductCode LEFT JOIN [BatchDyeingCentral].[dbo].[Dyelots] d ON t.ID_NO = d.Dyelot WHERE (t.ACTUAL_WT IS NOT NULL AND t.ACTUAL_WT > 0) AND (t.COMP_DATE >= :last_delta_time OR :last_delta_time IS NULL) ORDER BY t.COMP_DATE ASC, t.COMP_TIME ASC`;
     }
 
     const hasPlaceholder = /:last_delta_time|:last_timestamp/i.test(defaultQuery);

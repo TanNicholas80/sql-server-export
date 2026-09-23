@@ -125,8 +125,9 @@ async function main() {
       if (totalProcessedInIteration >= targetBatchSize && isRunning) {
         logger.info(
           { totalProcessedInIteration, targetBatchSize },
-          'Catch-up mode active: proceeding to next batch iteration immediately...'
+          'Catch-up mode active: waiting 2s buffer before next batch iteration...'
         );
+        await sleep(2000); // Buffer agar tidak membanjiri CPU VPS & koneksi web
       } else if (isRunning) {
         logger.info(
           { totalProcessedInIteration, pollIntervalMs },

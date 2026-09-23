@@ -9,7 +9,10 @@ class StateService {
    */
   static getFilePath() {
     const stateFile = process.env.STATE_FILE || './state.json';
-    return path.resolve(stateFile);
+    if (path.isAbsolute(stateFile)) {
+      return stateFile;
+    }
+    return path.resolve(__dirname, '../../', stateFile);
   }
 
   /**

@@ -24,7 +24,8 @@ class CsvService {
    */
   static streamSqlToCsv(sqlStreamRequest, outputFileName, incrementalColumn) {
     return new Promise((resolve, reject) => {
-      const tempDir = path.resolve(process.env.TEMP_DIR || './tmp');
+      const rawTempDir = process.env.TEMP_DIR || './tmp';
+      const tempDir = path.isAbsolute(rawTempDir) ? rawTempDir : path.resolve(__dirname, '../../', rawTempDir);
       CsvService.ensureDirectoryExists(tempDir);
 
       const fileName = outputFileName || `ticket_export_${Date.now()}.csv`;
